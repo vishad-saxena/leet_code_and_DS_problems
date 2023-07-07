@@ -18,9 +18,9 @@ public class TopViewOfBinarySearchTree {
         q.add(new Pair(0,root));
         while (!q.isEmpty()){
             Pair pair=q.poll();
-//            if (!map.containsKey(pair.val)){
+            if (!map.containsKey(pair.val)){
                 map.put(pair.val,pair.node.val);
-//            }
+            }
             if (pair.node.left!=null)
                 q.add(new Pair(pair.val-1,pair.node.left ));
             if (pair.node.right!=null)

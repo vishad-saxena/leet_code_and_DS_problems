@@ -1,79 +1,132 @@
+import java.util.*;
+
 public class Practice {
     Node head;
     Node tail;
-    public Node addNode(int val){
-        Node node=new Node(val);
-        if (head==null){
-            head=node;
-            tail=node;
-            return head;
-        }
-        tail.next=node;
-        tail=tail.next;
-        return head;
-    }
+
+//    public Node addNode(int val){
+//        Node node=new Node(val);
+//        if (head==null){
+//            head=node;
+//            tail=node;
+//            return head;
+//        }
+//        tail.next=node;
+//        tail=tail.next;
+//        return head;
+//    }
     public static void main(String[] args) {
         Practice p=new Practice();
+        Practice q=new Practice();
+//        q.addNode(1);
+//        q.addNode(2);
+//        q.addNode(2);
+//        q.addNode(2);
+//        q.addNode(3);
+        int[] nums={1,2,3,4,5,6,7};
 
-        p.addNode(1);
-//        p.addNode(2);
-        p.addNode(2);
-//        p.addNode(3);
-        p.addNode(3);
-//        p.addNode(4);
-        p.addNode(3);
-        p.addNode(2);
-        p.addNode(1);
-        boolean reversedList=isPalindrome(p.head);
+        Node res= createBSTFromSortedArray(nums,0,nums.length-1);
+        List<Integer> topView=getTopViewOfBST(res);
+
+
     }
 
-    private static boolean isPalindrome(Node head) {
-        if (head==null||head.next==null)return true;
-        Node slow=head;
-        Node fast=head;
-        while(fast.next!=null&& fast.next.next!=null){
-            slow=slow.next;
-            fast=fast.next.next;
-        }
-        Node head2=slow.next;
-        Node head1=head;
-        slow.next=null;
-        head2=reverse(head2);
-        while(head2!=null){
-            if(head1.val==head2.val){
-                head1=head1.next;
-                head2=head2.next;
-            }else {
-                return false;
+    private static List<Integer> getTopViewOfBST(Node res) {
+        if (res==null) return null;
+        ArrayList<Integer> list=new ArrayList<>();
+        TreeMap<Integer,Integer> map=new TreeMap<>();
+        Queue<Pair> queue=new ArrayDeque<>();
+        queue.add(new Pair(0,res));
+        while(!queue.isEmpty()){
+            Pair pair=queue.poll();
+            if (!map.containsKey(pair.val)){
+                map.put(pair.val, pair.node.val);
+            }
+            if (pair.node.left!=null){
+                queue.add(new Pair(pair.val-1,pair.node.left));
+            }
+            if (pair.node.right!=null){
+                queue.add(new Pair(pair.val +1,pair.node.right));
             }
         }
-        return true;
-    }
-
-
-    private static Node reverse(Node head) {
-        Node current=head;
-        Node prev=null;
-        while(current!=null){
-            Node nextPtr=current.next;
-            current.next=prev;
-            prev=current;
-            current=nextPtr;
+        for (Map.Entry<Integer,Integer>entry:map.entrySet()) {
+            list.add(entry.getValue());
         }
-        return prev;
-
+        return list;
     }
+
+    private static Node createBSTFromSortedArray(int[] nums, int low, int high) {
+        if (nums.length==0)return null;
+        if (low>high)return null;
+        int mid=low+(high-low)/2;
+        Node node=new Node(nums[mid]);
+        node.left=createBSTFromSortedArray(nums,low,mid-1);
+        node.right=createBSTFromSortedArray(nums,mid+1,high);
+        return node;
+    }
+
+
+//    private static Node reverse(Node head2) {
+//        Node prev=null;
+//        Node current=head2;
+//        while(current!=null){
+//            Node nextPtr=current.next;
+//            current.next=prev;
+//            prev=current;
+//            current=nextPtr;
+//
+//        }
+//        return prev;
+//    }
+
 
 
 }
-
-class Node {
+class Node{
     int val;
-    Node next;
-    Node(int val){
+    Node right;
+    Node left;
+    Node (int val){
         this.val=val;
     }
 }
+class Pair{
+    int val;
+    Node node;
+    Pair(int val,Node node){
+        this.val=val;
+        this.node=node;
+    }
+}
+
+
+
+//=====================isPalindrome List====================================
+//private static boolean isPalindrome(Node head) {
+//    if (head==null||head.next==null)return true;
+//    Node slow=head;
+//    Node fast=head;
+//    while(fast.next!=null&& fast.next.next!=null){
+//        slow=slow.next;
+//        fast=fast.next.next;
+//    }
+//    Node head2=slow.next;
+//    Node head1=head;
+//    slow.next=null;
+//    head2=reverse(head2);
+//    while(head2!=null){
+//        if(head1.val==head2.val){
+//            head1=head1.next;
+//            head2=head2.next;
+//        }else {
+//            return false;
+//        }
+//    }
+//    return true;
+//}
+
+
+
 //========================reOrderList=======================================
 
 //private static Node reOrderList(Node head) {
@@ -205,13 +258,13 @@ class Node {
 //        Node root=getBSTFromSortedArray(arr,0,arr.length-1);
 //    }
 //
-//    private static Node getBSTFromSortedArray(int[] arr, int low, int high) {
-//        if(arr.length==0)return null;
+//   private static Node createBSTFromSortedArray(int[] nums, int low, int high) {
+//        if (nums.length==0)return null;
 //        if (low>high)return null;
 //        int mid=low+(high-low)/2;
-//
-//        node.left=getBSTFromSortedArray(arr,low,mid-1);
-//        node.right=getBSTFromSortedArray(arr,mid+1,high);
+//        Node node=new Node(nums[mid]);
+//        node.left=createBSTFromSortedArray(nums,low,mid-1);
+//        node.right=createBSTFromSortedArray(nums,mid+1,high);
 //        return node;
 //    }
 //}
