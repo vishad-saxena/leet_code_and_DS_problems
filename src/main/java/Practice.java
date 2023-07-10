@@ -26,33 +26,9 @@ public class Practice {
         int[] nums={1,2,3,4,5,6,7};
 
         Node res= createBSTFromSortedArray(nums,0,nums.length-1);
-        List<Integer> topView=getTopViewOfBST(res);
+//        List<Integer> topView=getTopViewOfBST(res);
 
 
-    }
-
-    private static List<Integer> getTopViewOfBST(Node res) {
-        if (res==null) return null;
-        ArrayList<Integer> list=new ArrayList<>();
-        TreeMap<Integer,Integer> map=new TreeMap<>();
-        Queue<Pair> queue=new ArrayDeque<>();
-        queue.add(new Pair(0,res));
-        while(!queue.isEmpty()){
-            Pair pair=queue.poll();
-            if (!map.containsKey(pair.val)){
-                map.put(pair.val, pair.node.val);
-            }
-            if (pair.node.left!=null){
-                queue.add(new Pair(pair.val-1,pair.node.left));
-            }
-            if (pair.node.right!=null){
-                queue.add(new Pair(pair.val +1,pair.node.right));
-            }
-        }
-        for (Map.Entry<Integer,Integer>entry:map.entrySet()) {
-            list.add(entry.getValue());
-        }
-        return list;
     }
 
     private static Node createBSTFromSortedArray(int[] nums, int low, int high) {
