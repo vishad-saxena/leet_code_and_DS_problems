@@ -14,8 +14,14 @@ public class StrategyPatternComplexClass {
 
     public static void main(String[] args) {
         int[] data={9,2,1};
-        StrategyPatternComplexClass obj=new StrategyPatternComplexClass(new BubbleSort());
+        StretegyComplexClassChild obj=new StretegyComplexClassChild(new BubbleSort());
         obj.displaySortedData(data);
+    }
+}
+class StretegyComplexClassChild extends StrategyPatternComplexClass{
+
+    public StretegyComplexClassChild(Sorter sorter) {
+        super(sorter);
     }
 }
 interface Sorter{
