@@ -16,7 +16,9 @@ public class Java8Usecases {
 //        starting with 1 using Stream functions?
 //        findAllBumbersStartingWith1();
 
-//  TODO:IMPORTANT CONCEPT INSIDE 3.    How to find duplicate elements in a given integers
+//  TODO:IMPORTANT CONCEPT INSIDE
+
+//   3. How to find duplicate elements in a given integers
 //  list in java using Stream functions?
 //        findDuplicatesFromListUsingStream();
 
@@ -38,6 +40,7 @@ public class Java8Usecases {
 //   9.    Find second highest salary of employees
         fndSecondHighestSalary();
    }
+//
 
     private static void fndSecondHighestSalary() {
         List<Employee> list=new ArrayList<>();
@@ -45,7 +48,7 @@ public class Java8Usecases {
         list.add(new Employee(3,"vishad"));
         list.add(new Employee(2,"vishad"));
         list.add(new Employee(4,"vishad"));
-        Employee e=list.stream().sorted((e1,e2)->Integer.compare(e2.getAge(),e1.getAge())).skip(1).findFirst().get();
+        Employee e=list.stream().sorted((e1,e2)->e2.getAge().compareTo(e1.getAge())).skip(1).findFirst().get();
         System.out.println(e.getAge());
     }
 
@@ -67,7 +70,6 @@ public class Java8Usecases {
 
     private static void findFirsNonRepeatedCharacter() {
         String input = "Java articles are Awesome";
-        Set<Integer> set=new HashSet<>();
         Character c=input.chars()
                 .mapToObj(i->Character.toLowerCase(Character.valueOf((char)i)))
                 .collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new,Collectors.counting()))

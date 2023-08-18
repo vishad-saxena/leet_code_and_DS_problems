@@ -3,7 +3,8 @@ package leetcode;
 
 public class HouseRobber2 {
     public static void main(String[] args) {
-        int[] nums={1,2,3,1};
+//        int[] nums={1,2,3,1};
+        int [] nums={20,5,1,13,6,11,40};
 //        int[] nums={2,7,9,3,1};
         int result=getMaxProfitFromRobbery(nums);
         System.out.println(result);
