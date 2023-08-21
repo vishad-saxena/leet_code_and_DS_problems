@@ -12,18 +12,16 @@ public class Java13 {
     public static void main(String[] args) {
         String str="aaBBccdd";
         Set<Character>set=new HashSet<>();
+//        1. find all the duplicate characters in a given string
+        str.chars().mapToObj(e->Character.toLowerCase((char)e)).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new,Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(e->e.getValue()>1)
+                .forEach(System.out::println);
 
-        str.chars().mapToObj(e->Character.toLowerCase((char)e)).forEach(System.out::println);
-
-//        str.chars().mapToObj(e->Character.toLowerCase((char)e)).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new,Collectors.counting()))
-//                .entrySet()
-//                .stream()
-//                .filter(e->e.getValue()>1)
-//                .forEach(System.out::println);
-
-
-//        String str="123";
-//        System.out.println(str.chars().allMatch(Character::isDigit));
+//        2. check weather a string is a number or not?
+        String str2="123a";
+        System.out.println(str2.chars().allMatch(Character::isDigit));
     }
 
 }

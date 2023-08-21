@@ -32,7 +32,7 @@ public class Java14 {
         }
 
     }
-
+//1. print numbers in sequesnce using two threads
     public static void main(String[] args) {
         Java14 obj=new Java14();
         Runnable r=()->{
@@ -53,20 +53,20 @@ public class Java14 {
         Thread t2=new Thread(r2);
         t1.start();
         t2.start();
-//        String str="hello";
-//        StringBuilder sb=new StringBuilder();
-//        Character c=str.chars().mapToObj(e->Character.valueOf((char)e)).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new,Collectors.counting()))
-//                .entrySet()
-//                .stream()
-//                .filter(e->e.getValue()==1)
-//                .findFirst()
-//                .get()
-//                .getKey();
-//
-//        System.out.println(c);
 
-//        String str2=str.chars().mapToObj(e->Character.valueOf((char)e)).forEach(StringBuilder::reverse);
-//        System.out.println(sb.reverse());
+//        2. find first non repeating character
+        String str="hello";
+        StringBuilder sb=new StringBuilder();
+        Character c=str.chars().mapToObj(e->Character.valueOf((char)e)).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new,Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(e->e.getValue()==1)
+                .findFirst()
+                .get()
+                .getKey();
+
+        System.out.println(c);
+
 
 
     }
